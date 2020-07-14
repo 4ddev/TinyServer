@@ -1,5 +1,5 @@
 {
-  "name": "Server Backend GitLab Alternative",
+  "name": "TinyServer",
   "version": "1.0.0",
   "description": "Backend Server for GitLab Alternative",
   "main": "MessageTypes.js",
