@@ -1,0 +1,26 @@
+{
+    "name": "Main Server for Configration of a Linux ServerSystem",
+    "version": "1.0.0",
+    "description": "Backend Server for configuration of a Linux System",
+	"ip" : "0.0.0.0",
+	"port" : "8081",
+    "configuration": {
+      "database": false,
+      "pipeline": false,
+      "adminpassword": true
+    },
+    "database" : {
+        "_comment" : "This is an example of an Database Configuration, if this element will be removed the database module is not active and no connection will be opened",
+        "host": "192.168.53.3", 
+        "user": "angron", 
+        "password": "demo", 
+        "database": "4Ddev" 
+    },
+    "fileSystemProvider" :{
+      "_comment": "This is an provider for a Filesystem Server which handle some filesystem operations if this element is not present at the start this module is not active",
+      "ssl":"ws",
+      "ip": "192.168.53.4",
+      "port":"3012"
+    }
+  }
+  

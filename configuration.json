@@ -1,0 +1,18 @@
+{
+    "name": "Backend Server for controlling and configuring a Linux System",
+    "version": "1.0.0",
+    "description": "Backend Server for configuration of a Linux System",
+	"ip" : "0.0.0.0",
+	"port" : "8081",
+    "configuration": {
+      "pipeline": false,
+      "adminpassword": true
+    },
+    "modules" :{
+      "FrontendController" : {
+        "node_modules" : [ "http", "ws", "querystring", "message_controller"  ],
+        "tinyserver_modules": [ "" ]
+      }
+    }
+  }
+  

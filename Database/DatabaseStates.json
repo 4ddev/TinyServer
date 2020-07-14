@@ -1,0 +1,8 @@
+{
+    "PENDING": 1,
+    "OPEN": 2,
+    "CLOSED": 3,
+    "CLOSING": 4,
+    "INITIALIZED": 5,
+    "DISABLED": 6
+}
