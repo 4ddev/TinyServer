@@ -4,7 +4,7 @@
   "description": "Backend Server for GitLab Alternative",
   "main": "MessageTypes.js",
   "dependencies": {
-    "message-controller": "^1.0.5",
+    "message-controller": "^1.0.7",
     "mysql": "^2.16.0",
     "safe-buffer": "^5.1.2",
     "ws": "^6.2.1"
