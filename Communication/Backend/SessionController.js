@@ -1,7 +1,15 @@
 class SessionController {
     constructor(db){
-        if ( db == null ) throw Error("No Database given");
+        //if ( db == null ) throw Error("No Database given");
         this.db = db;
+    }
+
+    // Get a List of all Session
+    getSession(request){
+        let sessionID = this.parseCookies(request);
+        sessionID = sessionID[0].split("=");
+        console.log( sessionID );
+        return sesionID;
     }
 
     // Stackoverflow https://stackoverflow.com/questions/3393854/get-and-set
