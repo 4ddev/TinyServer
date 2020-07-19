@@ -13,6 +13,13 @@
         "node_modules" : [ "http", "ws", "querystring", "message_controller"  ],
         "tinyserver_modules": [ "" ]
       }
-    }
+    },
+    "database" : {
+      "_comment" : "This is an example of an Database Configuration, if this element will be removed the database module is not active and no connection will be opened",
+      "host": "localhost", 
+      "user": "root", 
+      "password": "", 
+      "database": "_server_manager" 
+  }
   }
   

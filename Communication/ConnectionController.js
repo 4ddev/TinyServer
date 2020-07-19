@@ -43,11 +43,12 @@ class ConnectionController {
      * @param {fn()} errorFunction 
      */
     createDatabaseController(errorFunction){
-        if ( this.backendConfiguration.configuration.hasOwnProperty('database')){
-            // Creates a database Connection
-            this.database = new DatabaseProvider.DataBaseProvider(serverConfiguration);
+        // Creates a database Connection
+        this.database = new DatabaseProvider.DataBaseProvider(this.backendConfiguration);
+        if ( this.database.getState() == DatabaseStates.DISABLED ) return;
+        else {
             console.log( "Open Database connection" );
-            database.open().then( function( fulfilled ){
+            this.database.open().then( function( fulfilled ){
                 console.log( fulfilled );
             }).catch( (err) => {
                 if( errorFunction != null && errorFunction instanceof Function ){

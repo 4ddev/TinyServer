@@ -3,14 +3,14 @@ const Connection = require('./DatabaseStates.json');
 
 
 class DataBaseProvider {
-    constructor( config ){
+    constructor( configuration ){
         // Check if a configuration is given for a Database
-        if( configuration.hasOwnProperty('database') ){
+        if( !configuration.hasOwnProperty('database') ){
             this.state = Connection.DISABLED;
-            return;
+        } else {
+            this.con = mysql.createConnection(configuration.database);
+            this.state = Connection.INITIALIZED;
         }
-        this.con = mysql.createConnection(config);
-        this.state = Connection.INITIALIZED;
     }
 
     /**
