@@ -1,7 +1,6 @@
 const mysql = require('mysql');
 const Connection = require('./DatabaseStates.json');
 
-
 class DataBaseProvider {
     constructor( configuration ){
         // Check if a configuration is given for a Database
@@ -34,6 +33,7 @@ class DataBaseProvider {
                     // TODO CHECK REASON FOR NOT OPENED
                     provider.state = Connection.CLOSED;
                     reject(err);
+                
                 }else{
                     provider.state = Connection.OPEN;
                     resolv("Database ready to use");

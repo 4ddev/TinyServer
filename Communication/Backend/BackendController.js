@@ -86,11 +86,16 @@ class BackendController {
                                                      this : ServerResponse */
     static processMessage(response, message){
         // Receive incoming message - use MessageController.createInstance - create the Bean
-        let instance = MessageController.createInstance( message, classes);
-        console.log(  instance.constructor.name, JSON.stringify(instance));
+        let instance = null;
+        try{
+            instance = MessageController.createInstance( message, classes);
+        }catch ( e ){
+            console.log( "Wrong Method found " , e )
+        }
         if ( instance == null ) { 
             MessagePipeline.send(response, BackendController.error("Method not found") );
         } else {
+            console.log(  instance.constructor.name, JSON.stringify(instance));
             instance.validate( message ).then( result => {
                 if ( result == true ){
                     instance.execute().then( result => {

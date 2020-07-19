@@ -19,6 +19,8 @@ class ConnectionController {
 
         this.createDatabaseController().then(fulfilled => { 
            this.createBackendController(configuration);
+        }).catch( err  => {
+            console.log( err );
         });
         this.createFileSystemController();
     }
