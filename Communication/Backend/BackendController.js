@@ -6,6 +6,7 @@ const MessageTypes = require( '../Beans/MessageBeans' );
 // Load this module
 const MessagePipeline = require("../MessagePipeline");
 const MessageController = require( 'message-controller' );
+const SessionController = require('../Backend/SessionController');
 
 // Register the constructor's in the ClassSet - only 
 // these Classes could be instantiated by the MessageController
@@ -17,13 +18,17 @@ class BackendController {
         this.wss = null;
         this.database = database;
         this.pipe = pipeLine;
-        this.readBeans();
+        this.readServerFunctions();
+        this.sessionController = this.createSessionController();
     }
 
+    createSessionController(database){
+        return new SessionController.SessionController();
+    }
     /**
      * Read all Backend Functions  
      */
-    readBeans(){
+    readServerFunctions(){
         console.log( "Loading Modules... --------");
         for (const item of Object.entries(MessageTypes)) {
             console.log( "Module loaded: "+item[0] );
