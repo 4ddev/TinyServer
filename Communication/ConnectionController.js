@@ -17,9 +17,10 @@ class ConnectionController {
 
         this.pipeline = new MessagePipe.MessagePipeline(); 
 
-        this.createDatabaseController();
+        this.createDatabaseController().then(fulfilled => { 
+           this.createBackendController(configuration);
+        });
         this.createFileSystemController();
-        this.createBackendController(configuration);
     }
 
     /**
@@ -43,20 +44,23 @@ class ConnectionController {
      * @param {fn()} errorFunction 
      */
     createDatabaseController(errorFunction){
-        // Creates a database Connection
-        this.database = new DatabaseProvider.DataBaseProvider(this.backendConfiguration);
-        if ( this.database.getState() == DatabaseStates.DISABLED ) return;
-        else {
-            console.log( "Open Database connection" );
-            this.database.open().then( function( fulfilled ){
-                console.log( fulfilled );
-            }).catch( (err) => {
-                if( errorFunction != null && errorFunction instanceof Function ){
-                    errorFunction();
-                }
-                console.log( err );
-            });
-        }
+        let connectionController = this;
+        return new Promise( function( resolv, reject ) {
+            // Creates a database Connection
+            connectionController.database = new DatabaseProvider.DataBaseProvider(connectionController.backendConfiguration);
+            if ( connectionController.database.getState() == DatabaseStates.DISABLED ) return;
+            else {
+                connectionController.database.open().then( function( fulfilled ){
+                    resolv();
+                }).catch( (err) => {
+                    if( errorFunction != null && errorFunction instanceof Function ){
+                        errorFunction();
+                    }
+                    console.log( err );
+                    reject();
+                });
+            }
+        });
     }
 
     /**
