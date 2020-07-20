@@ -39,5 +39,9 @@ module.exports = {
 	GetMailUser: require('./ServerConfigPackage/Mail/GetMailUser' ).GetMailUser,
 	ChangeMailUserPassword: require('./ServerConfigPackage/Mail/ChangeMailUserPassword').ChangeMailUserPassword,
 	RemoveMailUser: require( './ServerConfigPackage/Mail/RemoveMailUser' ).RemoveMailUser,
-	VactionMessage: require( './ServerConfigPackage/Mail/VacationMessage').VacationMessage
+	VactionMessage: require( './ServerConfigPackage/Mail/VacationMessage').VacationMessage,
+
+	AddServer: require( './ServerConfigPackage/ServerManagement/AddServer' ).AddServer,
+	GetServer: require( './ServerConfigPackage/ServerManagement/GetServer' ).GetServer,
+	RemoveServer: require( './ServerConfigPackage/ServerManagement/RemoveServer' ).RemoveServer,
 }

@@ -11,18 +11,18 @@ const SessionController = require('../Backend/SessionController');
 // Register the constructor's in the ClassSet - only 
 // these Classes could be instantiated by the MessageController
 const classes = (new MessageController.ClassSet());
-
+let database = null;
 class BackendController {
-    constructor ( config, pipeLine, database ){
+    constructor ( config, databaseCon, pipeLine ){
 		this.config = config;
         this.wss = null;
-        this.database = database;
+        database = databaseCon;
         this.pipe = pipeLine;
         this.readServerFunctions();
         this.sessionController = this.createSessionController();
     }
 
-    createSessionController(database){
+    createSessionController(){
         return new SessionController.SessionController();
     }
     /**
@@ -85,6 +85,10 @@ class BackendController {
     /*  Scope is set to the SocketConnection can be - this : WebSocket 
                                                      this : ServerResponse */
     static processMessage(response, message){
+        /**
+         * TODO: Check Session
+         */
+        
         // Receive incoming message - use MessageController.createInstance - create the Bean
         let instance = null;
         try{
@@ -92,13 +96,16 @@ class BackendController {
         }catch ( e ){
             console.log( "Wrong Method found " , e )
         }
+
         if ( instance == null ) { 
             MessagePipeline.send(response, BackendController.error("Method not found") );
         } else {
             console.log(  instance.constructor.name, JSON.stringify(instance));
+            var db = database;
+            console.log( database );
             instance.validate( message ).then( result => {
                 if ( result == true ){
-                    instance.execute().then( result => {
+                    instance.execute(db).then( result => {
                         MessagePipeline.send( response, result );
                     }).catch( err  => {
                         MessagePipeline.send( response, BackendController.error(err ));

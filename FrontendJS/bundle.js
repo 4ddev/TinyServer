@@ -1,8 +1,8 @@
-
 class ServerPage {
     constructor(){
         this.server = null;
     }
+
     getServerList(){
         $.ajax({
             url: "/service",
@@ -10,12 +10,32 @@ class ServerPage {
             dataType : "json",
             contentType: "application/json; charset=utf-8",
             
-            data: JSON.stringify({ "CreateMailUser" : {
+            data: JSON.stringify({ "GetServer" : {
                 name : "TEST",
                 password : "TEST" 
             } } ),
             success: function(data){
                 console.log( data );
+                $('#loading').hide();
+                $('#device_wrapper').show();
+            }
+        }); 
+    }
+    addServerToList(){
+        $.ajax({
+            url: "/service",
+            type: "POST",
+            dataType : "json",
+            contentType: "application/json; charset=utf-8",
+            
+            data: JSON.stringify({ "AddServer" : {
+                name : "TEST",
+                password : "TEST" 
+            } } ),
+            success: function(data){
+                console.log( data );
+                $('#loading').hide();
+                $('#device_wrapper').show();
             }
         }); 
     }
@@ -29,6 +49,9 @@ $('#login').submit( function(e){
 });
 
 $('#server_overview').click( function(e ){
-    $('#device_wrapper').toggle();
+    $('.content-wrapper').hide();
+    $('#loading').show();
     serverPageProvider.getServerList();
 })
+
+

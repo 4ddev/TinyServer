@@ -49,10 +49,11 @@ class ConnectionController {
         let connectionController = this;
         return new Promise( function( resolv, reject ) {
             // Creates a database Connection
-            connectionController.database = new DatabaseProvider.DataBaseProvider(connectionController.backendConfiguration);
-            if ( connectionController.database.getState() == DatabaseStates.DISABLED ) return;
+            connectionController.databaseConnection = new DatabaseProvider.DataBaseProvider(connectionController.backendConfiguration);
+            if ( connectionController.databaseConnection.getState() == DatabaseStates.DISABLED ) return;
             else {
-                connectionController.database.open().then( function( fulfilled ){
+                connectionController.databaseConnection.open().then( function( fulfilled ){
+                    console.log( "Database open ready to use " );
                     resolv();
                 }).catch( (err) => {
                     if( errorFunction != null && errorFunction instanceof Function ){
@@ -71,7 +72,7 @@ class ConnectionController {
      * @param {fn()} errorFunction This function will be triggered on an error 
      */
     createBackendController( configuration, errorFunction ){
-        this.backendController = new BackendController.BackendController(configuration,this.pipeline,this.databaseConnection);
+        this.backendController = new BackendController.BackendController(configuration,this.databaseConnection,this.pipeline);
         
         this.backendController.createHTTPServer().then( function( fulfilled ){
             console.log( fulfilled ); 
